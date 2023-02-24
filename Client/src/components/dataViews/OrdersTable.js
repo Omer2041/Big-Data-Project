@@ -17,44 +17,6 @@ import Switch from "@mui/material/Switch";
 import { visuallyHidden } from "@mui/utils";
 import { ordersHeadCells } from "../config/tables";
 
-function createData(
-  time,
-  timehandle,
-  amount,
-  mushrooms,
-  onion,
-  olives = 1,
-  corn = 3,
-  tomato = 4
-) {
-  return {
-    time,
-    timehandle,
-    amount,
-    mushrooms,
-    onion,
-    olives,
-    corn,
-    tomato,
-  };
-}
-
-const rows = [
-  createData("10:02", 305, 3.7, 67, 4.3, 5, 1),
-  createData("12:04", 452, 25.0, 51, 4.9),
-  createData("11:20", 262, 16.0, 24, 6.0),
-  createData("13:50", 159, 6.0, 24, 4.0),
-  createData("18:30", 356, 16.0, 49, 3.9),
-  createData("09:36", 408, 3.2, 87, 6.5),
-  createData("08:54", 237, 9.0, 37, 4.3),
-  createData("20:02", 375, 0.0, 94, 0.0),
-  createData("14:23", 518, 26.0, 65, 7.0),
-  createData("11:22", 392, 0.2, 98, 0.0),
-  createData("15:46", 318, 0, 81, 2.0),
-  createData("17:28", 360, 19.0, 9, 37.0),
-  createData("12:14", 437, 18.0, 63, 4.0),
-];
-
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -150,7 +112,7 @@ export default function EnhancedTable({ data }) {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -173,17 +135,19 @@ export default function EnhancedTable({ data }) {
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+              rowCount={data.length}
             />
             <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
+              {stableSort(data, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   return (
                     <TableRow hover key={index}>
                       <TableCell padding='normal'></TableCell>
+                      <TableCell>{row.branch}</TableCell>
+                      <TableCell>{row.date}</TableCell>
                       <TableCell>{row.time}</TableCell>
-                      <TableCell>{row.timehandle}</TableCell>
+                      <TableCell>{row.handleDuration}</TableCell>
                       <TableCell>{row.amount}</TableCell>
                       <TableCell>{row.mushrooms}</TableCell>
                       <TableCell>{row.onion}</TableCell>
@@ -207,7 +171,7 @@ export default function EnhancedTable({ data }) {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component='div'
-          count={rows.length}
+          count={data.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

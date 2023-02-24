@@ -43,15 +43,19 @@ const saveToDB = async (order) => {
   }
 };
 
-const getOrders = async () => {
+const getOrders = async (query) => {
   try {
-    const orders = await Order.find();
-    console.log(orders);
+    const orders = await Order.find({
+      date: {
+        $gte: query.from,
+        $lte: query.to,
+      },
+    });
+    // console.log(orders);
     return orders;
   } catch (err) {
     console.error(err);
   }
 };
-
 
 module.exports = { saveToDB, getOrders };

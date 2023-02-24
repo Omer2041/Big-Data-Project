@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const controller = require("../controllers/bigMLcontroller");
+const bigMlController = require("../controllers/bigML.controller");
+const elasticController = require("../controllers/elasticSearch.controller");
 
-router.get("/buildModel", controller.buildModel);
+router.get("/buildModel", bigMlController.buildModel);
+router.get("/ordersByDate", elasticController.getOrdersByDate);
 
 module.exports = {
   routes: router,

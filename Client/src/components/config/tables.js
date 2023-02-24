@@ -1,11 +1,19 @@
 export const ordersHeadCells = [
   {
+    id: "branch",
+    label: "Branch",
+  },
+  {
+    id: "date",
+    label: "Date",
+  },
+  {
     id: "time",
     label: "Time",
   },
   {
     id: "timehandle",
-    label: "Handle Duration",
+    label: "Handle Duration (Min)",
   },
   {
     id: "amount",

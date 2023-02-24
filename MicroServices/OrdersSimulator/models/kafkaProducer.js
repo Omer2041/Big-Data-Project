@@ -1,7 +1,6 @@
 require("dotenv").config();
 const uuid = require("uuid");
 const Kafka = require("node-rdkafka");
-
 const kafkaConfig = {
   "group.id": "cloudkarafka",
   "metadata.broker.list": process.env.CLOUDKARAFKA_BROKERS.split(","),
@@ -29,9 +28,9 @@ producer.on("event.error", (err) => console.log(err));
 const publish = (data, topic) => {
   let msg = new Buffer.from(JSON.stringify(data));
   topic = process.env.CLOUDKARAFKA_TOPIC_PREFIX + topic;
-  console.log(topic);
   try {
-    setTimeout(() => producer.produce(topic, -1, msg, uuid.v4()), 1000);
+    producer.produce(topic, -1, msg, uuid.v4());
+    producer.flush(1000);
     console.log("published:", data);
   } catch (error) {
     console.error("A problem occurred when sending our message");

@@ -6,9 +6,14 @@ import {
   Select,
   Button,
   Box,
+  IconButton,
+  ButtonGroup,
+  Tooltip,
 } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import BorderAllIcon from "@mui/icons-material/BorderAll";
 import DateSelector from "./DateSelector";
-
+import Branches from "../config/branches";
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -20,35 +25,32 @@ const MenuProps = {
 };
 
 export default function BranchDatePicker({
-  branches,
-  currentStore,
-  setCurrentStore,
+  currentBranch,
+  setCurrentBranch,
   date,
   setDate,
   onSearch,
+  showAllOrders,
 }) {
-  const [isloaded, setIsLoaded] = useState(false);
-  const [data, setData] = useState(null);
   return (
     <Box
       sx={{
         textAlign: "center",
-        border: "1px solid silver",
-        borderRadius: 1,
-        p: 1,
+        // border: "3px dashed white",
+        borderRadius: 2,
         display: "flex",
       }}>
-      <FormControl size='small' sx={{ m: 2, width: 200 }}>
+      <FormControl size='small' sx={{ m: 2, width: "35%" }}>
         <InputLabel>Branch</InputLabel>
         <Select
-          value={currentStore}
+          value={currentBranch}
           label='Branch'
-          onChange={(event) => setCurrentStore(event.target.value)}
+          onChange={(event) => setCurrentBranch(event.target.value)}
           MenuProps={MenuProps}>
           <MenuItem value=''>
             <em>None</em>
           </MenuItem>
-          {branches.map((item) => {
+          {Branches.map((item) => {
             return (
               <MenuItem key={item} value={item}>
                 {item}
@@ -58,14 +60,16 @@ export default function BranchDatePicker({
         </Select>
       </FormControl>
       <DateSelector date={date} setDate={setDate} />
-      <Button
-        size='small'
-        sx={{ m: 1 }}
-        variant='contained'
-        color='success'
-        onClick={onSearch}>
-        Search
-      </Button>
+      <Tooltip title='Search'>
+        <IconButton color='primary' sx={{ m: 2 }} onClick={onSearch}>
+          <SearchIcon />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title='Show All Orders'>
+        <IconButton color='primary' sx={{ m: 2 }} onClick={showAllOrders}>
+          <BorderAllIcon />
+        </IconButton>
+      </Tooltip>
     </Box>
   );
 }

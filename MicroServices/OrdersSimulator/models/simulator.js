@@ -33,11 +33,11 @@ const Branches = [
 const toppings = ["onion", "olives", "tomato", "corn", "mushrooms"];
 
 const generateOrder = () => {
-  const hr = _.random(10, 21);
-  const mn = _.random(00, 59);
+  const hr = _.random(10, 21).toString().padStart(2, "0");
+  const mn = _.random(00, 59).toString().padStart(2, "0");
   const time = "" + hr + ":" + mn;
-  const startDate = new Date(2020, 1, 1);
-  const endDate = new Date(2024, 1, 1);
+  const startDate = new Date(2023, 1, 20);
+  const endDate = new Date(2023, 1, 23);
   const date = JSON.stringify(
     DateGenerator.getRandomDateInRange(startDate, endDate)
   ).substring(1, 11);
@@ -49,8 +49,9 @@ const generateOrder = () => {
     region: branch.region,
     date: date,
     time: time,
+    amount: _.random(0, 10),
     toppings: _.sampleSize(toppings, Math.floor(_.random(0, 5))),
-    completed: true,
+    completed: Math.random() > 0.15,
     handle_time: _.random(0, 30),
     topic: "orders",
   };

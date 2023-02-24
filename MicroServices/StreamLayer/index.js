@@ -27,6 +27,7 @@ kafkaConsumer.on("data", async (msg) => {
   let ordersData = await redis.json.GET("orders_data");
   try {
     let newOrder = JSON.parse(msg.value);
+    console.log(newOrder);
     if (newOrder.topic == "orders") {
       ordersData = processData(ordersData, newOrder);
       await redis.json.SET("orders_data", "$", ordersData);

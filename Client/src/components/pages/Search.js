@@ -1,53 +1,43 @@
-import React, { useState, useEffect } from "react";
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
+import React, { useState } from "react";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import Page from "./Page";
 import BranchDatePicker from "../utils/BranchDatePicker";
-import { DefaultDataConfig } from "../config/defaultData";
 import OrdersTable from "../dataViews/OrdersTable";
-import axios from "axios";
 import dayjs from "dayjs";
 
-const Search = () => {
-  const [data, setData] = useState(DefaultDataConfig);
-  const [isloaded, setIsLoaded] = useState(true);
-  const [branches, setBranches] = useState([[]]);
-  const [currentStore, setCurrentStore] = useState("");
-  const [date, setDate] = useState(() => dayjs("2022-02-01T00:00"));
+const Search = ({ orders, searchOrders }) => {
+  const [currentBranch, setCurrentBranch] = useState("");
+  const [date, setDate] = useState(() => dayjs("2023-02-22T00:00"));
 
-  // useEffect(() => {
-  //   const getCitiesFlavors = async () => {
-  //     setIsLoaded(false);
-  //     await axios("http://localhost:4000/api/getCitiesFlavors")
-  //       .then((res) => {
-  //         console.log(res.data);
-  //         setBranches(res.data);
-  //         setIsLoaded(true);
-  //       })
-  //       .catch((err) => console.error(err));
-  //   };
-  //   getCitiesFlavors();
-  // }, []);
+  const onSearch = () => {
+    searchOrders({ branch: currentBranch, date: date.format("YYYY-MM-DD") });
+  };
 
-  const onSearch = () => {};
+  const showAllOrders = () => {
+    searchOrders();
+  };
 
   return (
     <Page title='Search'>
       <Container maxWidth='xl'>
         <Box>
-          <Typography variant='h4'>Search For Orders</Typography>
+          <Typography sx={{ mb: 5 }} variant='h4'>
+            Search For Orders
+          </Typography>
         </Box>
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={4} md={3}></Grid>
-          <Grid item xs={12} sm={4} md={6}>
+          <Grid item xs={12} sm={4} md={8}>
             <BranchDatePicker
-              currentStore={currentStore}
-              setCurrentStore={setCurrentStore}
-              branches={branches}
+              currentBranch={currentBranch}
+              setCurrentBranch={setCurrentBranch}
+              date={date}
+              setDate={setDate}
+              onSearch={onSearch}
+              showAllOrders={showAllOrders}
             />
           </Grid>
-          <Grid item xs={12} sm={4} md={3}></Grid>
           <Grid item xs={12} sm={4} md={12}>
-            <OrdersTable />
+            <OrdersTable data={orders} />
           </Grid>
         </Grid>
       </Container>
