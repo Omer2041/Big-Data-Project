@@ -47,8 +47,8 @@ const getOrders = async (query) => {
   try {
     const orders = await Order.find({
       date: {
-        $gte: query.from,
-        $lte: query.to,
+        $gte: query?.from,
+        $lte: query?.to,
       },
     });
     // console.log(orders);
