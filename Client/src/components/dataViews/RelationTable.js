@@ -16,31 +16,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import { visuallyHidden } from "@mui/utils";
 import { relationHeadCells } from "../config/tables";
-
-function createData(antecedent, consequent, support, confidence) {
-  return {
-    antecedent,
-    consequent,
-    support,
-    confidence,
-  };
-}
-
-const rows = [
-  createData("10:02", 305, 3.7, 67, 4.3, 5, 1),
-  createData("12:04", 452, 25.0, 51, 4.9),
-  createData("11:20", 262, 16.0, 24, 6.0),
-  createData("13:50", 159, 6.0, 24, 4.0),
-  createData("18:30", 356, 16.0, 49, 3.9),
-  createData("09:36", 408, 3.2, 87, 6.5),
-  createData("08:54", 237, 9.0, 37, 4.3),
-  createData("20:02", 375, 0.0, 94, 0.0),
-  createData("14:23", 518, 26.0, 65, 7.0),
-  createData("11:22", 392, 0.2, 98, 0.0),
-  createData("15:46", 318, 0, 81, 2.0),
-  createData("17:28", 360, 19.0, 9, 37.0),
-  createData("12:14", 437, 18.0, 63, 4.0),
-];
+import { CircularProgress } from "@mui/material";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -109,12 +85,12 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-export default function EnhancedTable({ data }) {
+export default function EnhancedTable({ data, loaded }) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -137,7 +113,7 @@ export default function EnhancedTable({ data }) {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -148,54 +124,62 @@ export default function EnhancedTable({ data }) {
             variant='h5'
             id='tableTitle'
             component='div'>
-            Relation Rules
+            Toppings Association Rules
           </Typography>
         </Toolbar>
-        <TableContainer>
-          <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby='tableTitle'
-            size={dense ? "small" : "medium"}>
-            <EnhancedTableHead
-              order={order}
-              orderBy={orderBy}
-              onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+        {!data.hasOwnProperty("message") ? (
+          <TableContainer>
+            <Table
+              sx={{ minWidth: 750 }}
+              aria-labelledby='tableTitle'
+              size={dense ? "small" : "medium"}>
+              <EnhancedTableHead
+                order={order}
+                orderBy={orderBy}
+                onRequestSort={handleRequestSort}
+                rowCount={data.length}
+              />
+              <TableBody>
+                {stableSort(data, getComparator(order, orderBy))
+                  ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row, index) => {
+                    return (
+                      <TableRow hover key={index}>
+                        <TableCell padding='normal'></TableCell>
+                        <TableCell>{row?.antecedent}</TableCell>
+                        <TableCell>{row?.consequent}</TableCell>
+                        <TableCell>{row?.support}</TableCell>
+                        <TableCell>{row?.confidence}</TableCell>
+                      </TableRow>
+                    );
+                  })}
+                {emptyRows > 0 && (
+                  <TableRow
+                    style={{
+                      height: (dense ? 33 : 53) * emptyRows,
+                    }}>
+                    <TableCell colSpan={4} />
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25]}
+              component='div'
+              count={data.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
             />
-            <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  return (
-                    <TableRow hover key={index}>
-                      <TableCell padding='normal'></TableCell>
-                      <TableCell>{row.antecedent}</TableCell>
-                      <TableCell>{row.consequent}</TableCell>
-                      <TableCell>{row.support}</TableCell>
-                      <TableCell>{row.confidence}</TableCell>
-                    </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: (dense ? 33 : 53) * emptyRows,
-                  }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component='div'
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+          </TableContainer>
+        ) : (
+          <Toolbar sx={{ justifyContent: "center" }}>
+            <Typography variant='button' color='gray'>
+              {data.message}
+            </Typography>
+          </Toolbar>
+        )}
       </Paper>
       <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}

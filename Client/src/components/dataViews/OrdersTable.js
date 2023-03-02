@@ -126,57 +126,65 @@ export default function EnhancedTable({ data }) {
             Orders Details
           </Typography>
         </Toolbar>
-        <TableContainer>
-          <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby='tableTitle'
-            size={dense ? "small" : "medium"}>
-            <EnhancedTableHead
-              order={order}
-              orderBy={orderBy}
-              onRequestSort={handleRequestSort}
-              rowCount={data.length}
+        {!data.hasOwnProperty("message") ? (
+          <TableContainer>
+            <Table
+              sx={{ minWidth: 750 }}
+              aria-labelledby='tableTitle'
+              size={dense ? "small" : "medium"}>
+              <EnhancedTableHead
+                order={order}
+                orderBy={orderBy}
+                onRequestSort={handleRequestSort}
+                rowCount={data.length}
+              />
+              <TableBody>
+                {stableSort(data, getComparator(order, orderBy))
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row, index) => {
+                    return (
+                      <TableRow hover key={index}>
+                        <TableCell padding='normal'></TableCell>
+                        <TableCell>{row.branch}</TableCell>
+                        <TableCell>{row.date}</TableCell>
+                        <TableCell>{row.time}</TableCell>
+                        <TableCell>{row.handleDuration}</TableCell>
+                        <TableCell>{row.amount}</TableCell>
+                        <TableCell>{row.mushrooms}</TableCell>
+                        <TableCell>{row.onion}</TableCell>
+                        <TableCell>{row.olives}</TableCell>
+                        <TableCell>{row.corn}</TableCell>
+                        <TableCell>{row.tomato}</TableCell>
+                      </TableRow>
+                    );
+                  })}
+                {emptyRows > 0 && (
+                  <TableRow
+                    style={{
+                      height: (dense ? 33 : 53) * emptyRows,
+                    }}>
+                    <TableCell colSpan={10} />
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25]}
+              component='div'
+              count={data.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
             />
-            <TableBody>
-              {stableSort(data, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  return (
-                    <TableRow hover key={index}>
-                      <TableCell padding='normal'></TableCell>
-                      <TableCell>{row.branch}</TableCell>
-                      <TableCell>{row.date}</TableCell>
-                      <TableCell>{row.time}</TableCell>
-                      <TableCell>{row.handleDuration}</TableCell>
-                      <TableCell>{row.amount}</TableCell>
-                      <TableCell>{row.mushrooms}</TableCell>
-                      <TableCell>{row.onion}</TableCell>
-                      <TableCell>{row.olives}</TableCell>
-                      <TableCell>{row.corn}</TableCell>
-                      <TableCell>{row.tomato}</TableCell>
-                    </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: (dense ? 33 : 53) * emptyRows,
-                  }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component='div'
-          count={data.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+          </TableContainer>
+        ) : (
+          <Toolbar sx={{ justifyContent: "center" }}>
+            <Typography variant='button' color='gray'>
+              {data.message}
+            </Typography>
+          </Toolbar>
+        )}
       </Paper>
       <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}

@@ -1,11 +1,17 @@
 import React, { useState } from "react";
-import { Box, Container, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  Container,
+  Grid,
+  Typography,
+} from "@mui/material";
 import Page from "./Page";
 import BranchDatePicker from "../utils/BranchDatePicker";
 import OrdersTable from "../dataViews/OrdersTable";
 import dayjs from "dayjs";
 
-const Search = ({ orders, searchOrders }) => {
+const Search = ({ orders, searchOrders, loaded }) => {
   const [currentBranch, setCurrentBranch] = useState("");
   const [date, setDate] = useState(() => dayjs("2023-02-22T00:00"));
 
@@ -35,6 +41,13 @@ const Search = ({ orders, searchOrders }) => {
               onSearch={onSearch}
               showAllOrders={showAllOrders}
             />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            {!loaded && (
+              <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                <CircularProgress sx={{ color: "#36454f" }} />
+              </Box>
+            )}
           </Grid>
           <Grid item xs={12} sm={4} md={12}>
             <OrdersTable data={orders} />

@@ -18,7 +18,6 @@ const ListItemStyle = styled((props) => (
   color: "grey",
 }));
 
-
 const NavItem = ({ item }) => {
   const location = useLocation();
 
@@ -30,12 +29,12 @@ const NavItem = ({ item }) => {
       sx={[
         location.pathname === item.path && {
           content: "''",
-          backgroundColor: "#2196f3",
+          backgroundColor: "#353839",
           color: "white",
           borderRadius: 1,
-          boxShadow: 5,
+          boxShadow: 1,
           "&:hover": {
-            backgroundColor: "#2196f3",
+            backgroundColor: "#353839",
           },
         },
         location.pathname !== item.path && {
@@ -46,7 +45,7 @@ const NavItem = ({ item }) => {
             height: "5px",
             left: "50%",
             bottom: 0,
-            backgroundColor: "#2196f3",
+            backgroundColor: "#353839",
             transition: "all ease-in-out .2s",
           },
           "&:hover::after": {

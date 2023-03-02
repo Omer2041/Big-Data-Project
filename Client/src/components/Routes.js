@@ -15,8 +15,16 @@ const socket = io.connect("http://localhost:4001");
 
 export default function Routes() {
   const [data, setData] = useState(DefaultDataConfig);
-  const [orders, setOrders] = useState([]);
-  const [associationRules, setAssociationRules] = useState([]);
+  const [orders, setOrders] = useState({
+    message:
+      "Search For Orders By Branch and Date!",
+  });
+  const [associationRules, setAssociationRules] = useState({
+    message:
+      "Choose Range of Dates For Toppings Associations Rules !",
+  });
+  const [analyzeLoaded, setAnalyzeLoaded] = useState(true);
+  const [searchLoaded, setSearchLoaded] = useState(true);
 
   useEffect(() => {
     searchOrders();
@@ -31,25 +39,28 @@ export default function Routes() {
 
   const searchOrders = async (query) => {
     console.log(query);
+    setSearchLoaded(false);
     await axios("http://localhost:4000/api/ordersByDate", {
       params: query,
     })
       .then((res) => {
         console.log(res.data);
         setOrders(res.data);
+        setSearchLoaded(true);
       })
       .catch((err) => console.error(err));
   };
 
   const buildModel = async (query) => {
     console.log(query);
-
+    setAnalyzeLoaded(false);
     await axios("http://localhost:4000/api/buildModel", {
       params: query,
     })
       .then((res) => {
         console.log(res.data);
         setAssociationRules(res.data);
+        setAnalyzeLoaded(true);
       })
       .catch((err) => console.error(err));
   };
@@ -62,7 +73,13 @@ export default function Routes() {
         { path: "main", element: <Dashboard data={data} /> },
         {
           path: "search",
-          element: <Search orders={orders} searchOrders={searchOrders} />,
+          element: (
+            <Search
+              orders={orders}
+              searchOrders={searchOrders}
+              loaded={searchLoaded}
+            />
+          ),
         },
         {
           path: "analyze",
@@ -70,6 +87,7 @@ export default function Routes() {
             <Analyze
               data={associationRules}
               buildModel={buildModel}
+              loaded={analyzeLoaded}
             />
           ),
         },

@@ -11,7 +11,7 @@ const Dashboard = ({ data }) => {
     <Page title='Dashboard App'>
       <Container maxWidth='xl'>
         <Box sx={{ pb: 5 }}>
-          <Typography variant='h3'>Dashboard</Typography>
+          <Typography variant='h4'>Dashboard</Typography>
         </Box>
         <Grid container spacing={3}>
           {CounterDetailsConfig.map((item) => {
@@ -29,12 +29,7 @@ const Dashboard = ({ data }) => {
           })}
           {ChartDetailsConfig.map((item) => {
             return (
-              <Grid
-                key={item.name}
-                item
-                xs={12}
-                sm={4}
-                md={item.type != "line" ? 4 : 10}>
+              <Grid key={item.name} item xs={12} sm={4} md={6}>
                 <ChartDetails
                   title={item.name}
                   data={data[item.name]}

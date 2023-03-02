@@ -62,12 +62,12 @@ export default function BranchDatePicker({
       <DateSelector date={date} setDate={setDate} />
       <Tooltip title='Search'>
         <IconButton color='primary' sx={{ m: 2 }} onClick={onSearch}>
-          <SearchIcon />
+          <SearchIcon sx={{ color: "#353839" }} />
         </IconButton>
       </Tooltip>
       <Tooltip title='Show All Orders'>
         <IconButton color='primary' sx={{ m: 2 }} onClick={showAllOrders}>
-          <BorderAllIcon />
+          <BorderAllIcon sx={{ color: "#36454f" }} />
         </IconButton>
       </Tooltip>
     </Box>

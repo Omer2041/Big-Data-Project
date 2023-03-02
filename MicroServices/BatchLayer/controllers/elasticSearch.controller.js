@@ -4,7 +4,7 @@ const getOrdersByDate = async (req, res) => {
   let orders = req.query.hasOwnProperty("branch")
     ? await searchDocuments(req.query)
     : await searchDocuments();
-  orders = orders.map((item) => {
+  orders = orders?.map((item) => {
     return {
       branch: item.branch,
       date: item.date,
@@ -18,7 +18,9 @@ const getOrdersByDate = async (req, res) => {
       tomato: item.toppings.includes("tomato") ? 1 : 0,
     };
   });
-  res.send(orders);
+  orders.length > 0
+    ? res.send(orders)
+    : res.send({ message: "No Orders Found" });
 };
 
 module.exports = { getOrdersByDate };

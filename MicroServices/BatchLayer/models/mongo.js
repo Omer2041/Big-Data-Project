@@ -43,15 +43,10 @@ const saveToDB = async (order) => {
   }
 };
 
-const getOrders = async (query) => {
+const getOrders = async (query = {}) => {
   try {
-    const orders = await Order.find({
-      date: {
-        $gte: query?.from,
-        $lte: query?.to,
-      },
-    });
-    // console.log(orders);
+    const orders = await Order.find(query);
+    // console.log("orders: ", orders);
     return orders;
   } catch (err) {
     console.error(err);

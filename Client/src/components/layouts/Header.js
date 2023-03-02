@@ -13,18 +13,24 @@ const Header = () => {
     <AppBar
       position='fixed'
       sx={{
-        backgroundImage:
-          "radial-gradient( circle farthest-corner at 22.4% 21.7%, rgba(4,189,228,1) 0%, rgba(2,83,185,1) 100.2% )",
+        // backgroundImage:
+        //   "radial-gradient( circle farthest-corner at 22.4% 21.7%, rgba(4,189,228,1) 0%, rgba(2,83,185,1) 100.2% )",
+        bgcolor: "#353839",
+        height: "6%",
       }}>
-      <Toolbar>
+      <Toolbar sx={{ m: -0.75 }}>
         <Icon
           icon={"material-symbols:dashboard"}
           height={30}
           width={30}
           style={{ marginRight: 12 }}
         />
-        <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-          DashBoard
+        <Typography
+          variant='h5'
+          component='div'
+          sx={{ flexGrow: 1 }}
+        >
+          Pizza DashBoard
         </Typography>
       </Toolbar>
     </AppBar>

@@ -40,7 +40,7 @@ const MainStyle = styled("div")(({ theme, open }) => ({
   minHeight: "100%",
   paddingBottom: theme.spacing(10),
   [theme.breakpoints.up("lg")]: {
-    paddingTop: 100,
+    paddingTop: 75,
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(1),
   },
@@ -51,6 +51,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "flex-end",
   padding: theme.spacing(0, 1),
+
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
@@ -63,8 +64,8 @@ const Navbar = () => {
       <CssBaseline />
       <Drawer variant='permanent'>
         <DrawerHeader />
-        <Divider />
-        <ListItem sx={{ mt: 2, pl: 1.5 }}>
+        {/* <Divider /> */}
+        <ListItem sx={{ pl: 1.5 }}>
           <ListItemIcon>
             <Avatar
               sx={{ "&:hover": { cursor: "pointer" } }}

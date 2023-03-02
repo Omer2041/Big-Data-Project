@@ -23,8 +23,8 @@ export default function DatesRangePicker({
       <Typography sx={{ mt: 3 }}>to</Typography>
       <DateSelector date={toDate} setDate={setToDate} />
       <Tooltip title='Build Model'>
-        <IconButton color='primary' sx={{ m: 2 }} onClick={onBuildModel}>
-          <BuildIcon />
+        <IconButton sx={{ m: 2 }} onClick={onBuildModel}>
+          <BuildIcon sx={{ color: "#36454f" }} />
         </IconButton>
       </Tooltip>
     </Box>
