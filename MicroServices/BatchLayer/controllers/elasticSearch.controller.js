@@ -19,8 +19,8 @@ const getOrdersByDate = async (req, res) => {
     };
   });
   orders.length > 0
-    ? res.send(orders)
-    : res.send({ message: "No Orders Found" });
+    ? res.status(200).send(orders)
+    : res.status(404).send({ message: "No Orders Found" });
 };
 
 module.exports = { getOrdersByDate };

@@ -13,8 +13,10 @@ const todayOrders = (ordersData, newOrder) => {
   const branchesHandle = Object.values(
     ordersData["Top 5 Shortest Handle Time Branches"].branchesHandleTime
   );
-  ordersData["Average Handle Time"] =
-    branchesHandle.reduce((a, b) => a + b, 0) / branchesHandle.length;
+  ordersData["Average Handle Time"] = (
+    branchesHandle.reduce((a, b) => a + b, 0) /
+    (ordersData["Total Open Orders"] + ordersData["Today's Orders"])
+  ).toFixed(2);
   return ordersData;
 };
 
@@ -47,7 +49,7 @@ const branchesByHandleTime = (ordersData, newOrder) => {
 };
 
 const getTopFive = (obj) => {
-  let entries = Object.entries(obj);
+  let entries = Object.entries(obj).filter((e) => e[1] > 0);
   entries.sort((a, b) => a[1] - b[1]);
   return Object.fromEntries(entries.slice(0, 5));
 };

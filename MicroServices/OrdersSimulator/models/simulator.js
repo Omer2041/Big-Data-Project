@@ -38,9 +38,7 @@ const generateOrder = () => {
   const time = "" + hr + ":" + mn;
   const startDate = new Date(2023, 1, 20);
   const endDate = new Date(2023, 1, 23);
-  const date = JSON.stringify(
-    DateGenerator.getRandomDateInRange(startDate, endDate)
-  ).substring(1, 11);
+  const date = JSON.stringify(new Date()).substring(1, 11);
   const branch = _.sample(Branches);
   return {
     order_id: uuidv4(),

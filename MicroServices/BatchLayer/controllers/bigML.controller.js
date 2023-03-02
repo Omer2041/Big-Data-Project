@@ -11,32 +11,6 @@ const connection = new bigml.BigML(
 const DATASET_PATH = "./toppingsDataset.csv";
 const RESULTS_PATH = "./association_rules.json";
 
-const fakeData = [
-  {
-    order_id: "123",
-    branch_id: "321",
-    branch: "ddd",
-    region: "Dan",
-    date: Date.now(),
-    time: 9,
-    toppings: ["cheese", "olives"],
-    completed: false,
-    handle_time: 9,
-    topic: "orders",
-  },
-  {
-    order_id: "321",
-    branch_id: "123",
-    branch: "ddd",
-    region: "Dan",
-    date: Date.now(),
-    time: 9,
-    toppings: ["onion", "corn", "tomato"],
-    completed: false,
-    handle_time: 9,
-    topic: "orders",
-  },
-];
 
 const buildModel = async (req, res) => {
   /* Prepare the Dataset */
@@ -112,7 +86,7 @@ const getAssociationRules = (associationId, res) => {
 
     const sets = extractRules(rules, items);
     console.log(sets);
-    res?.send(sets);
+    res?.status(200).send(sets);
     
     jsonfile.writeFile(RESULTS_PATH, sets, { spaces: 2 }, (err) => {
       if (err) {

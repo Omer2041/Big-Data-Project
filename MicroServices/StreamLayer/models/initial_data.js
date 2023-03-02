@@ -47,6 +47,7 @@ module.exports = {
   "Total Open Orders": 0,
   "Average Handle Time": 0,
   "Open Branches": 0,
+  
   "Branches Status": branchesStatus,
   "Orders By Region": {
     options: {
