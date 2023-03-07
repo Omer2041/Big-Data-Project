@@ -10,18 +10,18 @@ async function searchDocuments(query = { match_all: {} }) {
 //         })),
 //       },
 //     };
-    query = {
-		"match": {
-			"branch": {
-			"query" : query.branch
+		query = {
+			"match": {
+				"branch": {
+				"query" : query.branch
+				}
+			},
+			"bool": {
+				"must": Object.entries(query).filter(([k, v]) => k !== 'branch').map(([field, value]) => ({
+				"match": { [field]: value },
+				})),
 			}
-		},
-		"bool": {
-			"must": Object.entries(query).filter(([k, v]) => k !== 'branch').map(([field, value]) => ({
-			"match": { [field]: value },
-			})),
-		}
-	};
+		};
   }
   try {
     const response = await client.search({
