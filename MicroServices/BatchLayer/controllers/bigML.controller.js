@@ -22,10 +22,10 @@ const buildModel = async (req, res) => {
 
   /* Create the model */
   const source = new bigml.Source(connection);
-  source.createAndWait(DATASET_PATH, function (error, sourceInfo) {
+  source.create(DATASET_PATH, function (error, sourceInfo) {
     if (error) {
       console.log("Error creating source");
-      throw error;
+      res.status(500).send({ message: 'Could not create data source' });
     }
 
     /* Source created successfully */
@@ -35,7 +35,7 @@ const buildModel = async (req, res) => {
     dataset.create(sourceInfo, function (error, datasetInfo) {
       if (error) {
         console.log("Error creating dataset");
-        throw error;
+        res.status(500).send({ message: 'Could not create dataset' });
       }
 
       /* Dataset created successfully */
@@ -48,7 +48,7 @@ const buildModel = async (req, res) => {
         function (error, associationInfo) {
           if (error) {
             console.log("Error creating association");
-            throw error;
+            res.status(500).send({ message: 'Could not create association from dataset' });
           }
 
           /* Association created successfully */
@@ -65,23 +65,20 @@ const getAssociationRules = (associationId, res) => {
   model.get(associationId, true, (err, modelInfo) => {
     if (err) {
       console.log("Error getting model");
-      res?.send({ message: "Error getting model" });
-      throw err;
+      res?.status(500)?.send({ message: "Error getting model" });
     }
     console.log(modelInfo);
     const rules = modelInfo.object.associations.rules;
     console.log("RULES: ", rules);
     if (!rules) {
-      console.error(`No associations found (${associationId})`);
-      res?.send({ message: `No associations found (${associationId})` });
-      return;
+      console.error(`No association rules were found (${associationId})`);
+      res?.status(500)?.send({ message: `Association does not contain any rules (${associationId})` });
     }
     const items = modelInfo.object.associations.items;
     console.log("ITEMS: ", items);
     if (!items) {
       console.error(`No items found (${associationId})`);
-      res?.send({ message: `No items found (${associationId})` });
-      return;
+     res?.status(500)?.send({ message: `Association does not contain any items (${associationId})` });
     }
 
     const sets = extractRules(rules, items);
@@ -138,11 +135,11 @@ const extractRules = (rules, items) => {
 };
 
 const saveAsCSV = (data) => {
+  console.log(`Writing dataset to ${DATASET_PATH}`);
   let dataset = "";
   data?.forEach((entry) => (dataset += entry.join(",") + "\n"));
 
   try {
-    console.log("Writing dataset");
     writeFileSync(DATASET_PATH, dataset);
     console.log("New dataset created");
   } catch (err) {
