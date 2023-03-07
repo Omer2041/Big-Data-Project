@@ -58,10 +58,10 @@ async function deleteAllDocuments() {
   }
 }
 
-(async () => {
-  // deleteAllDocuments();
-  // const document = await searchDocuments();
-  // console.log(document);
-})();
+// (async () => {
+//    deleteAllDocuments();
+//    const document = await searchDocuments();
+//    console.log(document);
+// })();
 
 module.exports = { indexDocument, searchDocuments };
