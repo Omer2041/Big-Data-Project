@@ -66,6 +66,7 @@ const getAssociationRules = (associationId, res) => {
     if (err) {
       console.log("Error getting model");
       res?.status(500)?.send({ message: "Error getting model" });
+      return;
     }
     console.log(modelInfo);
     const rules = modelInfo.object.associations.rules;
@@ -73,17 +74,19 @@ const getAssociationRules = (associationId, res) => {
     if (!rules) {
       console.error(`No association rules were found (${associationId})`);
       res?.status(500)?.send({ message: `Association does not contain any rules (${associationId})` });
+      return;
     }
     const items = modelInfo.object.associations.items;
     console.log("ITEMS: ", items);
     if (!items) {
       console.error(`No items found (${associationId})`);
-     res?.status(500)?.send({ message: `Association does not contain any items (${associationId})` });
+      res?.status(500)?.send({ message: `Association does not contain any items (${associationId})` });
+      return;
     }
 
     const sets = extractRules(rules, items);
     console.log(sets);
-    res?.status(200).send(sets);
+    res?.status(200)?.send(sets);
     
     jsonfile.writeFile(RESULTS_PATH, sets, { spaces: 2 }, (err) => {
       if (err) {
