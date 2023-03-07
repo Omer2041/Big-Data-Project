@@ -14,8 +14,7 @@ const consumer = new KafkaConsumer({
 const topic = process.env.CLOUDKARAFKA_TOPIC;
 
 consumer.connect();
-consumer
-  .on("ready", (arg) => {
+consumer.on("ready", (arg) => {
     consumer.subscribe([topic]).consume();
     console.log(`Consumer ${arg.name} ready. topics: ${topic}`);
   })
