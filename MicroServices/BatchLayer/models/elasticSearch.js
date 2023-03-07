@@ -3,13 +3,25 @@ const client = new Client({ node: "http://localhost:9200" });
 
 async function searchDocuments(query = { match_all: {} }) {
   if (query.hasOwnProperty("branch")) {
+//     query = {
+//       bool: {
+//         must: Object.entries(query).map(([field, value]) => ({
+//           match: { [field]: value },
+//         })),
+//       },
+//     };
     query = {
-      bool: {
-        must: Object.entries(query).map(([field, value]) => ({
-          match: { [field]: value },
-        })),
-      },
-    };
+		"match": {
+			"branch": {
+			"query" : query.branch
+			}
+		},
+		"bool": {
+			"must": Object.entries(query).filter(([k, v]) => k !== 'branch').map(([field, value]) => ({
+			"match": { [field]: value },
+			})),
+		}
+	};
   }
   try {
     const response = await client.search({
