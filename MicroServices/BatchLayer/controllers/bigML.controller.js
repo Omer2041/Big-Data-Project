@@ -8,7 +8,7 @@ const connection = new bigml.BigML(
   process.env.BIGML_API_KEY
 );
 const DATASET_PATH = "./toppingsDataset.csv";
-const RESULTS_PATH = "./association_rules.json";
+// const RESULTS_PATH = "./association_rules.json";
 
 const buildModel = async (req, res) => {
   /* Prepare the Dataset */
@@ -20,10 +20,10 @@ const buildModel = async (req, res) => {
 
   /* Create the model */
   const source = new bigml.Source(connection);
-  source.createAndWait(DATASET_PATH, function (error, sourceInfo) {
+  source.create(DATASET_PATH, function (error, sourceInfo) {
     if (error) {
-      console.log("Error creating source");
-      throw error;
+      res.status(500).send({ message: `Error creating data source` });
+      return;
     }
 
     /* Source created successfully */
@@ -32,8 +32,8 @@ const buildModel = async (req, res) => {
     const dataset = new bigml.Dataset(connection);
     dataset.create(sourceInfo, function (error, datasetInfo) {
       if (error) {
-        console.log("Error creating dataset");
-        throw error;
+        res.status(500).send({ message: `Error creating data source` });
+        return;
       }
 
       /* Dataset created successfully */
@@ -46,7 +46,8 @@ const buildModel = async (req, res) => {
         function (error, associationInfo) {
           if (error) {
             console.log("Error creating association");
-            throw error;
+            res.status(500).send({ message: `Error creating association rules` });
+            return;
           }
 
           /* Association created successfully */
@@ -63,40 +64,30 @@ const getAssociationRules = (associationId, res) => {
   model.get(associationId, true, (err, modelInfo) => {
     if (err) {
       console.log("Error getting model");
-      res?.send({ message: "Error getting model" });
-      throw err;
+      res?.status(500)?.send({ message: `Error getting model (${associationId})` });
+      return;
     }
     console.log(modelInfo);
     const rules = modelInfo.object.associations.rules;
     console.log("RULES: ", rules);
     if (!rules) {
       console.error(`No associations found (${associationId})`);
-      res?.send({ message: `No associations found (${associationId})` });
+      res?.status(500)?.send({ message: `No association rules were found (${associationId})` });
       return;
     }
     const items = modelInfo.object.associations.items;
     console.log("ITEMS: ", items);
     if (!items) {
       console.error(`No items found (${associationId})`);
-      res?.send({ message: `No items found (${associationId})` });
+      res?.status(500)?.send({ message: `No items were found (${associationId})` });
       return;
     }
 
     const sets = extractRules(rules, items);
-    console.log(sets);
-    res?.status(200).send(sets);
+    sets?.length && console.log(`Found ${sets.length} association rules`);
+    res?.status(200)?.send(sets);
 
-    // jsonfile.writeFile(RESULTS_PATH, sets, { spaces: 2 }, (err) => {
-    //   if (err) {
-    //     console.error(err);
-    //   } else {
-    //     console.log("Data written to file successfully!");
-    //   }
-    // });
-
-    console.log(
-      "Finished building model, results were written to " + RESULTS_PATH
-    );
+    return sets;
   });
 };
 
@@ -108,18 +99,18 @@ const getAssociationRules = (associationId, res) => {
 const extractRules = (rules, items) => {
   const sets = [];
   for (let i = 0; i < rules.length; ++i) {
-    const left = rules[i].lhs;
-    const right = rules[i].rhs;
+    const antecedent = rules[i].lhs;
+    const consequent = rules[i].rhs;
     let antecedents = "";
     let consequents = "";
 
-    for (let item = 0; item < left.length; item++) {
-      antecedents += items[left[item]].name;
-      if (item < left.length - 1) antecedents += ", ";
+    for (let i = 0; i < antecedent.length; ++i) {
+      antecedents += items[antecedent[i]].name;
+      if (i < antecedent.length - 1) antecedents += ", ";
     }
-    for (let item = 0; item < right.length; item++) {
-      consequents += items[right[item]].name;
-      if (item < right.length - 1) consequents += ", ";
+    for (let i = 0; i < consequent.length; ++i) {
+      consequents += items[consequent[i]].name;
+      if (i < consequent.length - 1) consequents += ", ";
     }
     const support = rules[i].support[0] * 100 + "%";
     const confidence = rules[i].confidence * 100 + "%";
@@ -136,11 +127,12 @@ const extractRules = (rules, items) => {
 };
 
 const saveAsCSV = (data) => {
+  
+  console.log("Writing dataset");
   let dataset = "";
   data?.forEach((entry) => (dataset += entry.join(",") + "\n"));
 
   try {
-    console.log("Writing dataset");
     writeFileSync(DATASET_PATH, dataset);
     console.log("New dataset created");
   } catch (err) {
