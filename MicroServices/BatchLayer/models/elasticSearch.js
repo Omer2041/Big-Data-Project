@@ -2,22 +2,14 @@ const { Client } = require("@elastic/elasticsearch");
 const client = new Client({ node: "http://localhost:9200" });
 
 async function searchDocuments(query = { match_all: {} }) {
-  if (query.hasOwnProperty("branch")) {
-    const queryBranch = { 
-      "match": {
-        "branch": {
-          "query" : query.branch
-        }
-      }
-    }
-    const q =  Object.entries(query).filter(([k, v]) => k !== 'branch').map(([field, value]) => ({
-      "match": { [field]: { "query": value } },
-    }));
+  if (query.hasOwnProperty("branch") && query.branch !== "") {
     query = {
-      "bool": {
-				"must": [ ...q, queryBranch ]
-			}
-		};
+      bool: {
+        must: Object.entries(query).map(([field, value]) => ({
+          match: { [field]: value },
+        })),
+      },
+    };
   }
   try {
     const response = await client.search({
@@ -66,10 +58,10 @@ async function deleteAllDocuments() {
   }
 }
 
-(async () => {
-  // deleteAllDocuments();
-  // const document = await searchDocuments();
-  // console.log(document);
-})();
+// (async () => {
+//   deleteAllDocuments();
+//   const document = await searchDocuments();
+//   console.log(document);
+// })();
 
 module.exports = { indexDocument, searchDocuments };

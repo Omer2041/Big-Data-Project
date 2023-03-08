@@ -1,6 +1,5 @@
 const _ = require("lodash");
 const { v4: uuidv4 } = require("uuid");
-const DateGenerator = require("random-date-generator");
 
 const Branches = [
   { id: 0, branch: "Haifa", region: "North" },
@@ -36,8 +35,6 @@ const generateOrder = () => {
   const hr = _.random(10, 21).toString().padStart(2, "0");
   const mn = _.random(00, 59).toString().padStart(2, "0");
   const time = "" + hr + ":" + mn;
-  const startDate = new Date(2023, 1, 20);
-  const endDate = new Date(2023, 1, 23);
   const date = JSON.stringify(new Date()).substring(1, 11);
   const branch = _.sample(Branches);
   return {
