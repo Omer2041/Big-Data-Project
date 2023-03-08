@@ -18,9 +18,9 @@ const getOrdersByDate = async (req, res) => {
       tomato: item.toppings.includes("tomato") ? 1 : 0,
     };
   });
-  orders && orders.length > 0
+  orders?.length
     ? res.status(200).send(orders)
-    : res.status(200).send({ message: "No Orders Found" });
+    : res.status(404).send({ message: "No Orders Found" });
 };
 
 module.exports = { getOrdersByDate };
