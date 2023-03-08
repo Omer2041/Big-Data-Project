@@ -2,7 +2,6 @@ require("dotenv").config();
 const { getOrders } = require("../models/mongo");
 const bigml = require("bigml");
 const { writeFileSync } = require("fs");
-const jsonfile = require("jsonfile");
 
 const connection = new bigml.BigML(
   process.env.BIGML_USERNAME,
