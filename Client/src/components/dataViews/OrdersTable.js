@@ -16,6 +16,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import { visuallyHidden } from "@mui/utils";
 import { ordersHeadCells } from "../config/tables";
+import { LinearProgress } from "@mui/material";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -54,11 +55,12 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding='normal'></TableCell>
+        {/* <TableCell padding='normal'></TableCell> */}
         {ordersHeadCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            sortDirection={orderBy === headCell.id ? order : false}>
+            sortDirection={orderBy === headCell.id ? order : false}
+            sx={{ fontWeight: "bold" }}>
             <TableSortLabel
               active={orderBy === headCell.id}
               direction={orderBy === headCell.id ? order : "asc"}
@@ -84,7 +86,7 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-export default function EnhancedTable({ data }) {
+export default function EnhancedTable({ data, loaded }) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [page, setPage] = React.useState(0);
@@ -144,7 +146,7 @@ export default function EnhancedTable({ data }) {
                   .map((row, index) => {
                     return (
                       <TableRow hover key={index}>
-                        <TableCell padding='normal'></TableCell>
+                        {/* <TableCell padding='normal'></TableCell> */}
                         <TableCell>{row.branch}</TableCell>
                         <TableCell>{row.date}</TableCell>
                         <TableCell>{row.time}</TableCell>
@@ -179,15 +181,28 @@ export default function EnhancedTable({ data }) {
             />
           </TableContainer>
         ) : (
-          <Toolbar sx={{ justifyContent: "center" }}>
-            <Typography variant='button' color='gray'>
-              {data.message}
-            </Typography>
-          </Toolbar>
+          <Table>
+            <TableBody>
+              {!loaded && (
+                <TableRow>
+                  <TableCell align='center' colSpan={11} sx={{ py: 3 }}>
+                    <LinearProgress color='info' />
+                  </TableCell>
+                </TableRow>
+              )}
+              <Toolbar sx={{ justifyContent: "center" }}>
+                <Typography variant='button' color='gray'>
+                  {data.message}
+                </Typography>
+              </Toolbar>
+            </TableBody>
+          </Table>
         )}
       </Paper>
       <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
+        control={
+          <Switch color='info' checked={dense} onChange={handleChangeDense} />
+        }
         label='Dense padding'
       />
     </Box>

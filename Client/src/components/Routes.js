@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useRoutes, Navigate } from "react-router";
 import { io } from "socket.io-client";
 import axios from "axios";
-
 import Analyze from "./pages/Analyze";
 import About from "./pages/About";
 import Dashboard from "./pages/Dashboard";
@@ -16,12 +15,10 @@ const socket = io.connect("http://localhost:4001");
 export default function Routes() {
   const [data, setData] = useState(DefaultDataConfig);
   const [orders, setOrders] = useState({
-    message:
-      "Search For Orders By Branch and Date!",
+    message: "Search For Orders By Branch and Date!",
   });
   const [associationRules, setAssociationRules] = useState({
-    message:
-      "Choose Range of Dates For Toppings Associations Rules !",
+    message: "Choose Range of Dates For Toppings Associations Rules !",
   });
   const [analyzeLoaded, setAnalyzeLoaded] = useState(true);
   const [searchLoaded, setSearchLoaded] = useState(true);
@@ -38,7 +35,8 @@ export default function Routes() {
   }, [socket]);
 
   const searchOrders = async (query) => {
-    console.log(query);
+    query && console.log(query);
+    setOrders({ message: "Loading..." });
     setSearchLoaded(false);
     await axios("http://localhost:4000/api/ordersByDate", {
       params: query,
@@ -53,6 +51,7 @@ export default function Routes() {
 
   const buildModel = async (query) => {
     console.log(query);
+    setAssociationRules({ message: "Loading..." });
     setAnalyzeLoaded(false);
     await axios("http://localhost:4000/api/buildModel", {
       params: query,
@@ -60,7 +59,6 @@ export default function Routes() {
       .then((res) => {
         console.log(res.data);
         setAssociationRules(res.data);
-        setAnalyzeLoaded(true);
       })
       .catch((err) => console.error(err));
   };
@@ -70,7 +68,10 @@ export default function Routes() {
       path: "/dashboard",
       element: <DashboardLayout />,
       children: [
-        { path: "main", element: <Dashboard data={data} /> },
+        {
+          path: "main",
+          element: <Dashboard data={data} />,
+        },
         {
           path: "search",
           element: (
@@ -88,6 +89,7 @@ export default function Routes() {
               data={associationRules}
               buildModel={buildModel}
               loaded={analyzeLoaded}
+              setLoaded={setAnalyzeLoaded}
             />
           ),
         },

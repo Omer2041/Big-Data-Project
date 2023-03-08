@@ -2,6 +2,7 @@ const { Client } = require("@elastic/elasticsearch");
 const client = new Client({ node: "http://localhost:9200" });
 
 async function searchDocuments(query = { match_all: {} }) {
+  console.log(query);
   if (query.hasOwnProperty("branch")) {
     query = {
       bool: {
@@ -17,7 +18,7 @@ async function searchDocuments(query = { match_all: {} }) {
       size: 1000,
       query: query,
     });
-    return response.hits.hits.map((hit) => hit._source);
+    return response?.hits.hits.map((hit) => hit._source);
   } catch (err) {
     console.error(err);
     return null;

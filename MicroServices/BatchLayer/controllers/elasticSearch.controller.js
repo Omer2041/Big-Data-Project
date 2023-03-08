@@ -1,7 +1,7 @@
 const { searchDocuments } = require("../models/elasticSearch");
 
 const getOrdersByDate = async (req, res) => {
-  let orders = req.query.hasOwnProperty("branch")
+  let orders = req.query.hasOwnProperty("branch") 
     ? await searchDocuments(req.query)
     : await searchDocuments();
   orders = orders?.map((item) => {
@@ -18,9 +18,9 @@ const getOrdersByDate = async (req, res) => {
       tomato: item.toppings.includes("tomato") ? 1 : 0,
     };
   });
-  orders.length > 0
+  orders && orders.length > 0
     ? res.status(200).send(orders)
-    : res.status(404).send({ message: "No Orders Found" });
+    : res.status(200).send({ message: "No Orders Found" });
 };
 
 module.exports = { getOrdersByDate };

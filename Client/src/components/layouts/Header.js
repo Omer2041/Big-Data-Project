@@ -1,13 +1,19 @@
 import React from "react";
-import { Typography, Toolbar } from "@mui/material";
+import { Typography, Toolbar, Button } from "@mui/material";
 import MuiAppBar from "@mui/material/AppBar";
-import { styled, useTheme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import { Icon } from "@iconify/react";
+import SimulatorControl from "../utils/SimulatorControl";
 
 const Header = () => {
   const AppBar = styled(MuiAppBar)(({ theme }) => ({
     zIndex: theme.zIndex.drawer + 1,
   }));
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
   return (
     <AppBar
@@ -25,13 +31,18 @@ const Header = () => {
           width={30}
           style={{ marginRight: 12 }}
         />
-        <Typography
-          variant='h5'
-          component='div'
-          sx={{ flexGrow: 1 }}
-        >
+        <Typography variant='h5' component='div' sx={{ flexGrow: 1 }}>
           Pizza DashBoard
         </Typography>
+        <Button
+          sx={[
+            { bgcolor: "transparent", color: "white" },
+            { "&:hover": { bgcolor: "white", color: "black" } },
+          ]}
+          onClick={handleClickOpen}>
+          Simulator Controller
+        </Button>
+        <SimulatorControl open={open} setOpen={setOpen} />
       </Toolbar>
     </AppBar>
   );

@@ -10,9 +10,7 @@ import {
   Drawer,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import MuiDrawer from "@mui/material/Drawer";
 import navButtons from "../config/navbarButtons";
-
 import { useNavigate } from "react-router-dom";
 import React from "react";
 import { Outlet } from "react-router";
@@ -32,12 +30,12 @@ const LayoutRootStyled = styled("div")({
   display: "flex",
   minHeight: "100%",
   overflow: "hidden",
+  width: "100%",
 });
 
 const MainStyle = styled("div")(({ theme, open }) => ({
   flexGrow: 1,
   overflow: "auto",
-  minHeight: "100%",
   paddingBottom: theme.spacing(10),
   [theme.breakpoints.up("lg")]: {
     paddingTop: 75,
@@ -64,8 +62,7 @@ const Navbar = () => {
       <CssBaseline />
       <Drawer variant='permanent'>
         <DrawerHeader />
-        {/* <Divider /> */}
-        <ListItem sx={{ pl: 1.5 }}>
+        <ListItem>
           <ListItemIcon>
             <Avatar
               sx={{ "&:hover": { cursor: "pointer" } }}

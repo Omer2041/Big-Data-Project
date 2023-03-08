@@ -1,14 +1,11 @@
-import { useState } from "react";
 import {
   MenuItem,
   FormControl,
   InputLabel,
   Select,
-  Button,
-  Box,
   IconButton,
-  ButtonGroup,
   Tooltip,
+  Card,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import BorderAllIcon from "@mui/icons-material/BorderAll";
@@ -33,14 +30,14 @@ export default function BranchDatePicker({
   showAllOrders,
 }) {
   return (
-    <Box
+    <Card
       sx={{
-        textAlign: "center",
-        // border: "3px dashed white",
-        borderRadius: 2,
         display: "flex",
+        justifyContent: "space-around",
+        m: 2,
+        p: 1,
       }}>
-      <FormControl size='small' sx={{ m: 2, width: "35%" }}>
+      <FormControl size='small' sx={{ m: 2, width: "25%" }}>
         <InputLabel>Branch</InputLabel>
         <Select
           value={currentBranch}
@@ -61,15 +58,15 @@ export default function BranchDatePicker({
       </FormControl>
       <DateSelector date={date} setDate={setDate} />
       <Tooltip title='Search'>
-        <IconButton color='primary' sx={{ m: 2 }} onClick={onSearch}>
-          <SearchIcon sx={{ color: "#353839" }} />
+        <IconButton color='info' onClick={onSearch}>
+          <SearchIcon />
         </IconButton>
       </Tooltip>
       <Tooltip title='Show All Orders'>
-        <IconButton color='primary' sx={{ m: 2 }} onClick={showAllOrders}>
-          <BorderAllIcon sx={{ color: "#36454f" }} />
+        <IconButton color='info' onClick={showAllOrders}>
+          <BorderAllIcon />
         </IconButton>
       </Tooltip>
-    </Box>
+    </Card>
   );
 }

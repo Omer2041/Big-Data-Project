@@ -11,7 +11,6 @@ const connection = new bigml.BigML(
 const DATASET_PATH = "./toppingsDataset.csv";
 const RESULTS_PATH = "./association_rules.json";
 
-
 const buildModel = async (req, res) => {
   /* Prepare the Dataset */
   const orders = await getOrders(req.query); // Get all orders from MongoDB
@@ -87,14 +86,14 @@ const getAssociationRules = (associationId, res) => {
     const sets = extractRules(rules, items);
     console.log(sets);
     res?.status(200).send(sets);
-    
-    jsonfile.writeFile(RESULTS_PATH, sets, { spaces: 2 }, (err) => {
-      if (err) {
-        console.error(err);
-      } else {
-        console.log("Data written to file successfully!");
-      }
-    });
+
+    // jsonfile.writeFile(RESULTS_PATH, sets, { spaces: 2 }, (err) => {
+    //   if (err) {
+    //     console.error(err);
+    //   } else {
+    //     console.log("Data written to file successfully!");
+    //   }
+    // });
 
     console.log(
       "Finished building model, results were written to " + RESULTS_PATH

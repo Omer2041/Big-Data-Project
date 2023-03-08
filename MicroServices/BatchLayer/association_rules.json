@@ -1,254 +1,310 @@
 [
   {
-    "antecedent": "corn",
-    "consequent": "onion",
-    "support": "43.943%",
-    "confidence": "69.935%",
-    "count": 214
-  },
-  {
     "antecedent": "onion",
     "consequent": "corn",
-    "support": "43.943%",
-    "confidence": "70.627%",
-    "count": 214
+    "support": "42.19%",
+    "confidence": "68.586%",
+    "count": 262
   },
   {
     "antecedent": "corn",
-    "consequent": "mushrooms",
-    "support": "43.532%",
-    "confidence": "69.281%",
-    "count": 212
-  },
-  {
-    "antecedent": "mushrooms",
-    "consequent": "corn",
-    "support": "43.532%",
-    "confidence": "70.43199999999999%",
-    "count": 212
+    "consequent": "onion",
+    "support": "42.19%",
+    "confidence": "68.766%",
+    "count": 262
   },
   {
     "antecedent": "onion",
     "consequent": "mushrooms",
-    "support": "43.120999999999995%",
-    "confidence": "69.307%",
-    "count": 210
+    "support": "41.868%",
+    "confidence": "68.063%",
+    "count": 260
   },
   {
     "antecedent": "mushrooms",
     "consequent": "onion",
-    "support": "43.120999999999995%",
-    "confidence": "69.767%",
-    "count": 210
+    "support": "41.868%",
+    "confidence": "70.081%",
+    "count": 260
   },
   {
     "antecedent": "onion",
     "consequent": "olives",
-    "support": "42.504999999999995%",
-    "confidence": "68.31700000000001%",
-    "count": 207
+    "support": "41.546%",
+    "confidence": "67.539%",
+    "count": 258
   },
   {
     "antecedent": "olives",
     "consequent": "onion",
-    "support": "42.504999999999995%",
-    "confidence": "69%",
-    "count": 207
+    "support": "41.546%",
+    "confidence": "68.074%",
+    "count": 258
   },
   {
     "antecedent": "mushrooms",
     "consequent": "tomato",
-    "support": "42.3%",
-    "confidence": "68.43900000000001%",
-    "count": 206
+    "support": "41.385%",
+    "confidence": "69.272%",
+    "count": 257
   },
   {
     "antecedent": "tomato",
     "consequent": "mushrooms",
-    "support": "42.3%",
-    "confidence": "72.28099999999999%",
-    "count": 206
+    "support": "41.385%",
+    "confidence": "70.219%",
+    "count": 257
   },
   {
     "antecedent": "onion",
     "consequent": "tomato",
-    "support": "41.478%",
-    "confidence": "66.667%",
-    "count": 202
+    "support": "41.224%",
+    "confidence": "67.01599999999999%",
+    "count": 256
   },
   {
     "antecedent": "tomato",
     "consequent": "onion",
-    "support": "41.478%",
-    "confidence": "70.877%",
-    "count": 202
+    "support": "41.224%",
+    "confidence": "69.94500000000001%",
+    "count": 256
   },
   {
     "antecedent": "corn",
-    "consequent": "tomato",
-    "support": "40.657%",
-    "confidence": "64.706%",
-    "count": 198
+    "consequent": "mushrooms",
+    "support": "41.063%",
+    "confidence": "66.929%",
+    "count": 255
   },
   {
-    "antecedent": "tomato",
+    "antecedent": "mushrooms",
     "consequent": "corn",
-    "support": "40.657%",
-    "confidence": "69.474%",
-    "count": 198
+    "support": "41.063%",
+    "confidence": "68.733%",
+    "count": 255
   },
   {
     "antecedent": "olives",
     "consequent": "tomato",
-    "support": "40.041%",
-    "confidence": "65%",
-    "count": 195
+    "support": "40.097%",
+    "confidence": "65.699%",
+    "count": 249
   },
   {
     "antecedent": "tomato",
     "consequent": "olives",
-    "support": "40.041%",
-    "confidence": "68.42099999999999%",
-    "count": 195
+    "support": "40.097%",
+    "confidence": "68.033%",
+    "count": 249
   },
   {
-    "antecedent": "onion, corn",
+    "antecedent": "corn",
+    "consequent": "tomato",
+    "support": "39.452%",
+    "confidence": "64.30399999999999%",
+    "count": 245
+  },
+  {
+    "antecedent": "tomato",
+    "consequent": "corn",
+    "support": "39.452%",
+    "confidence": "66.94%",
+    "count": 245
+  },
+  {
+    "antecedent": "corn, onion",
     "consequent": "mushrooms",
-    "support": "34.702%",
-    "confidence": "78.972%",
-    "count": 169
-  },
-  {
-    "antecedent": "mushrooms, corn",
-    "consequent": "onion",
-    "support": "34.702%",
-    "confidence": "79.717%",
-    "count": 169
+    "support": "32.528%",
+    "confidence": "77.09899999999999%",
+    "count": 202
   },
   {
     "antecedent": "mushrooms, onion",
     "consequent": "corn",
-    "support": "34.702%",
-    "confidence": "80.476%",
-    "count": 169
+    "support": "32.528%",
+    "confidence": "77.69200000000001%",
+    "count": 202
   },
   {
     "antecedent": "mushrooms, corn",
-    "consequent": "tomato",
-    "support": "33.06%",
-    "confidence": "75.94300000000001%",
-    "count": 161
+    "consequent": "onion",
+    "support": "32.528%",
+    "confidence": "79.216%",
+    "count": 202
   },
   {
     "antecedent": "mushrooms, onion",
     "consequent": "tomato",
-    "support": "33.06%",
-    "confidence": "76.667%",
-    "count": 161
-  },
-  {
-    "antecedent": "tomato, mushrooms",
-    "consequent": "corn",
-    "support": "33.06%",
-    "confidence": "78.155%",
-    "count": 161
+    "support": "32.045%",
+    "confidence": "76.538%",
+    "count": 199
   },
   {
     "antecedent": "tomato, mushrooms",
     "consequent": "onion",
-    "support": "33.06%",
-    "confidence": "78.155%",
-    "count": 161
+    "support": "32.045%",
+    "confidence": "77.432%",
+    "count": 199
   },
   {
     "antecedent": "tomato, onion",
     "consequent": "mushrooms",
-    "support": "33.06%",
-    "confidence": "79.703%",
-    "count": 161
+    "support": "32.045%",
+    "confidence": "77.73400000000001%",
+    "count": 199
   },
   {
-    "antecedent": "tomato, corn",
-    "consequent": "mushrooms",
-    "support": "33.06%",
-    "confidence": "81.313%",
-    "count": 161
-  },
-  {
-    "antecedent": "onion, corn",
+    "antecedent": "corn, onion",
     "consequent": "tomato",
-    "support": "32.854%",
-    "confidence": "74.766%",
-    "count": 160
+    "support": "31.723000000000003%",
+    "confidence": "75.191%",
+    "count": 197
   },
   {
     "antecedent": "tomato, onion",
     "consequent": "corn",
-    "support": "32.854%",
-    "confidence": "79.208%",
-    "count": 160
+    "support": "31.723000000000003%",
+    "confidence": "76.953%",
+    "count": 197
   },
   {
     "antecedent": "tomato, corn",
     "consequent": "onion",
-    "support": "32.854%",
-    "confidence": "80.808%",
-    "count": 160
+    "support": "31.723000000000003%",
+    "confidence": "80.408%",
+    "count": 197
   },
   {
-    "antecedent": "olives, corn",
-    "consequent": "onion",
-    "support": "31.828%",
-    "confidence": "79.89699999999999%",
-    "count": 155
+    "antecedent": "olives, onion",
+    "consequent": "tomato",
+    "support": "31.240000000000002%",
+    "confidence": "75.194%",
+    "count": 194
   },
   {
-    "antecedent": "olives, mushrooms",
-    "consequent": "onion",
-    "support": "31.622%",
-    "confidence": "78.974%",
-    "count": 154
+    "antecedent": "tomato, onion",
+    "consequent": "olives",
+    "support": "31.240000000000002%",
+    "confidence": "75.78099999999999%",
+    "count": 194
   },
   {
     "antecedent": "tomato, olives",
     "consequent": "onion",
-    "support": "31.006%",
-    "confidence": "77.436%",
-    "count": 151
+    "support": "31.240000000000002%",
+    "confidence": "77.912%",
+    "count": 194
+  },
+  {
+    "antecedent": "corn, onion",
+    "consequent": "olives",
+    "support": "31.079%",
+    "confidence": "73.664%",
+    "count": 193
+  },
+  {
+    "antecedent": "olives, onion",
+    "consequent": "corn",
+    "support": "31.079%",
+    "confidence": "74.806%",
+    "count": 193
+  },
+  {
+    "antecedent": "tomato, mushrooms",
+    "consequent": "corn",
+    "support": "31.079%",
+    "confidence": "75.09700000000001%",
+    "count": 193
+  },
+  {
+    "antecedent": "mushrooms, corn",
+    "consequent": "tomato",
+    "support": "31.079%",
+    "confidence": "75.68599999999999%",
+    "count": 193
   },
   {
     "antecedent": "olives, corn",
+    "consequent": "onion",
+    "support": "31.079%",
+    "confidence": "78.13799999999999%",
+    "count": 193
+  },
+  {
+    "antecedent": "tomato, corn",
     "consequent": "mushrooms",
-    "support": "30.595%",
-    "confidence": "76.80399999999999%",
-    "count": 149
+    "support": "31.079%",
+    "confidence": "78.776%",
+    "count": 193
+  },
+  {
+    "antecedent": "mushrooms, olives",
+    "consequent": "onion",
+    "support": "30.274%",
+    "confidence": "78.333%",
+    "count": 188
+  },
+  {
+    "antecedent": "tomato, olives",
+    "consequent": "corn",
+    "support": "29.630000000000003%",
+    "confidence": "73.896%",
+    "count": 184
   },
   {
     "antecedent": "olives, corn",
     "consequent": "tomato",
-    "support": "29.363%",
-    "confidence": "73.711%",
-    "count": 143
+    "support": "29.630000000000003%",
+    "confidence": "74.494%",
+    "count": 184
   },
   {
-    "antecedent": "tomato, mushrooms, corn",
-    "consequent": "onion",
-    "support": "28.337%",
-    "confidence": "85.714%",
-    "count": 138
+    "antecedent": "tomato, corn",
+    "consequent": "olives",
+    "support": "29.630000000000003%",
+    "confidence": "75.102%",
+    "count": 184
   },
   {
-    "antecedent": "tomato, onion, corn",
+    "antecedent": "mushrooms, corn",
+    "consequent": "olives",
+    "support": "29.469%",
+    "confidence": "71.765%",
+    "count": 183
+  },
+  {
+    "antecedent": "olives, corn",
     "consequent": "mushrooms",
-    "support": "28.337%",
-    "confidence": "86.25%",
-    "count": 138
+    "support": "29.469%",
+    "confidence": "74.089%",
+    "count": 183
   },
   {
-    "antecedent": "olives, mushrooms, corn",
+    "antecedent": "mushrooms, olives",
+    "consequent": "corn",
+    "support": "29.469%",
+    "confidence": "76.25%",
+    "count": 183
+  },
+  {
+    "antecedent": "mushrooms, olives",
+    "consequent": "tomato",
+    "support": "29.147000000000002%",
+    "confidence": "75.417%",
+    "count": 181
+  },
+  {
+    "antecedent": "tomato, mushrooms, olives",
     "consequent": "onion",
-    "support": "26.283%",
-    "confidence": "85.906%",
-    "count": 128
+    "support": "24.477%",
+    "confidence": "83.978%",
+    "count": 152
+  },
+  {
+    "antecedent": "tomato, mushrooms, olives",
+    "consequent": "corn",
+    "support": "23.833%",
+    "confidence": "81.768%",
+    "count": 148
   }
 ]
